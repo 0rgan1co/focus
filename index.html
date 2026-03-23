@@ -109,6 +109,57 @@
     color: var(--orange);
   }
 
+  /* -- CTA BUTTONS -- */
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.8rem;
+    border-radius: 100px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-primary {
+    background: var(--orange);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(255,99,61,0.3);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 6px 24px rgba(255,99,61,0.4);
+  }
+
+  .btn-secondary {
+    background: #fff;
+    color: var(--black);
+    border: 2px solid var(--border);
+    box-shadow: 0 2px 12px rgba(38,38,38,0.06);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--orange);
+    color: var(--orange);
+    box-shadow: 0 4px 16px rgba(255,99,61,0.1);
+  }
+
   .scroll-hint {
     position: absolute;
     bottom: 2rem;
@@ -565,6 +616,10 @@
   <span class="hero-badge">Keep It Simple</span>
   <h1>Deja de organizar.<br>Empeza a <span class="highlight">decidir.</span></h1>
   <p class="hero-sub">Un sistema de priorizacion con IA que cabe en 3 tareas por dia, se configura en una hora, y evoluciona con vos.</p>
+  <div class="hero-ctas">
+    <a href="https://tidycal.com/roldanjorgex/1on1focus" target="_blank" rel="noopener" class="btn btn-primary">Agendar una sesion</a>
+    <a href="prompts-onboarding.md" download class="btn btn-secondary">Descargar prompts</a>
+  </div>
   <div class="hero-hmw">
     Como podriamos ayudar a lideres ocupados a pasar de sentirse ahogados en tareas a tomar 3 decisiones claras cada manana — sin agregar otra herramienta compleja a su vida?
   </div>
