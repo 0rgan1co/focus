@@ -34,12 +34,13 @@
   /* -- HERO -- */
   .hero {
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 2rem;
+    padding: 1.25rem;
     position: relative;
     overflow: hidden;
   }
@@ -65,24 +66,24 @@
 
   .hero-badge {
     display: inline-block;
-    padding: 0.4rem 1.2rem;
+    padding: 0.35rem 1rem;
     border: 2px solid var(--orange);
     border-radius: 100px;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--orange);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 
   .hero h1 {
-    font-size: clamp(2.8rem, 7vw, 5rem);
+    font-size: 2.2rem;
     font-weight: 900;
-    line-height: 1.05;
+    line-height: 1.08;
     letter-spacing: -0.03em;
     max-width: 850px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem;
     color: var(--black);
   }
 
@@ -103,19 +104,21 @@
   }
 
   .hero-sub {
-    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    font-size: 1rem;
     color: var(--text-dim);
     max-width: 600px;
     font-weight: 300;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
+    padding: 0 0.5rem;
   }
 
   /* -- HERO PEOPLE -- */
   .hero-social-proof {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 2.5rem;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
   }
 
   .avatar-stack {
@@ -123,11 +126,11 @@
   }
 
   .avatar-stack img {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    border: 3px solid var(--white);
-    margin-left: -10px;
+    border: 2px solid var(--white);
+    margin-left: -8px;
     object-fit: cover;
   }
 
@@ -136,9 +139,9 @@
   }
 
   .social-proof-text {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-dim);
-    text-align: left;
+    text-align: center;
     line-height: 1.4;
   }
 
@@ -149,25 +152,28 @@
   /* -- CTA BUTTONS -- */
   .hero-ctas {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 3rem;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+    width: 100%;
+    max-width: 320px;
   }
 
   .btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
-    padding: 0.95rem 2rem;
+    padding: 0.9rem 1.6rem;
     border-radius: 100px;
     font-family: 'Lato', sans-serif;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 700;
     text-decoration: none;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
     border: none;
+    width: 100%;
   }
 
   .btn:hover {
@@ -205,10 +211,11 @@
   .hero-hmw {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    padding: 1.5rem 1.25rem;
     max-width: 800px;
-    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+    width: 100%;
+    font-size: 1.05rem;
     font-style: italic;
     font-weight: 300;
     line-height: 1.5;
@@ -264,9 +271,63 @@
     50% { opacity: 1; }
   }
 
+  /* -- QUOTE DIVIDER -- */
+  .quote-divider {
+    position: relative;
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=1400&q=80");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  @supports (-webkit-touch-callout: none) {
+    .quote-divider {
+      background-attachment: scroll;
+    }
+  }
+
+  .quote-overlay {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 3rem 1.5rem;
+    max-width: 700px;
+  }
+
+  .quote-divider::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(38,38,38,0.75);
+    z-index: 0;
+  }
+
+  .quote-divider blockquote {
+    font-size: 1.3rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.6;
+    color: #fff;
+    margin: 0;
+  }
+
+  .quote-divider cite {
+    display: block;
+    margin-top: 1.2rem;
+    font-size: 0.9rem;
+    font-style: normal;
+    font-weight: 700;
+    color: var(--orange);
+    letter-spacing: 0.05em;
+  }
+
   /* -- SECTIONS -- */
   section {
-    padding: 5rem 2rem;
+    padding: 3rem 1.25rem;
     max-width: 960px;
     margin: 0 auto;
   }
@@ -299,20 +360,16 @@
   /* -- TENSION: ANTES / DESPUES -- */
   .tension-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-top: 3rem;
-  }
-
-  @media (max-width: 640px) {
-    .tension-grid { grid-template-columns: 1fr; }
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
   }
 
   .tension-card {
     background: #fff;
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 2rem;
+    padding: 1.5rem;
     position: relative;
     overflow: hidden;
     box-shadow: 0 2px 12px rgba(38,38,38,0.04);
@@ -393,9 +450,9 @@
 
   .move {
     display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: 1.5rem;
-    padding: 2rem 0;
+    grid-template-columns: 56px 1fr;
+    gap: 1rem;
+    padding: 1.5rem 0;
     border-bottom: 1px solid var(--border);
     position: relative;
   }
@@ -410,8 +467,8 @@
   }
 
   .move-icon {
-    width: 48px;
-    height: 48px;
+    width: 42px;
+    height: 42px;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -471,8 +528,8 @@
   .promise-box {
     background: #fff;
     border: 2px solid var(--orange);
-    border-radius: 20px;
-    padding: 3rem;
+    border-radius: 16px;
+    padding: 2rem;
     text-align: center;
     margin-top: 3rem;
     position: relative;
@@ -508,20 +565,16 @@
   /* -- BENEFITS GRID -- */
   .benefits-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 3rem;
-  }
-
-  @media (max-width: 640px) {
-    .benefits-grid { grid-template-columns: 1fr; }
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
   }
 
   .benefit-card {
     background: #fff;
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 2rem;
+    padding: 1.5rem;
     box-shadow: 0 2px 12px rgba(38,38,38,0.04);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
@@ -576,10 +629,10 @@
     background: #fff;
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 2.5rem;
+    padding: 1.5rem;
     display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 2rem;
+    grid-template-columns: 1fr;
+    gap: 1rem;
     align-items: start;
     box-shadow: 0 2px 12px rgba(38,38,38,0.04);
     transition: transform 0.2s ease;
@@ -587,10 +640,6 @@
 
   .avatar-card:hover {
     transform: translateY(-2px);
-  }
-
-  @media (max-width: 640px) {
-    .avatar-card { grid-template-columns: 1fr; }
   }
 
   .avatar-visual {
@@ -644,7 +693,7 @@
   .narrative {
     background: #fff;
     border-left: 4px solid var(--orange);
-    padding: 2.5rem;
+    padding: 1.5rem;
     border-radius: 0 16px 16px 0;
     margin-top: 3rem;
     box-shadow: 0 2px 12px rgba(38,38,38,0.04);
@@ -669,7 +718,7 @@
   /* -- LEAD MAGNET CTA -- */
   .lead-cta {
     text-align: center;
-    padding: 5rem 2rem;
+    padding: 3rem 1.25rem;
     background: linear-gradient(180deg, var(--white) 0%, rgba(255,99,61,0.04) 100%);
   }
 
@@ -731,8 +780,8 @@
 
   .modal {
     background: #fff;
-    border-radius: 20px;
-    padding: 2.5rem;
+    border-radius: 16px;
+    padding: 1.5rem;
     max-width: 440px;
     width: 100%;
     position: relative;
@@ -857,18 +906,136 @@
     display: none;
   }
 
-  /* -- RESPONSIVE -- */
-  @media (max-width: 640px) {
-    .move {
-      grid-template-columns: 60px 1fr;
-      gap: 1rem;
+  /* -- DESKTOP (min-width: mobile-first) -- */
+  @media (min-width: 640px) {
+    .hero {
+      padding: 2rem;
     }
+
+    .hero-badge {
+      padding: 0.4rem 1.2rem;
+      font-size: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 5rem);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-sub {
+      font-size: 1.25rem;
+      margin-bottom: 2.5rem;
+      padding: 0;
+    }
+
     .hero-social-proof {
-      flex-direction: column;
-      gap: 0.5rem;
+      flex-direction: row;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
     }
+
+    .avatar-stack img {
+      width: 40px;
+      height: 40px;
+      border-width: 3px;
+      margin-left: -10px;
+    }
+
     .social-proof-text {
-      text-align: center;
+      font-size: 0.85rem;
+      text-align: left;
+    }
+
+    .hero-ctas {
+      flex-direction: row;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      width: auto;
+      max-width: none;
+    }
+
+    .btn {
+      width: auto;
+      padding: 0.95rem 2rem;
+      font-size: 1rem;
+    }
+
+    .hero-hmw {
+      border-radius: 20px;
+      padding: 2.5rem 3rem;
+      font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+    }
+
+    .quote-divider {
+      min-height: 400px;
+    }
+
+    .quote-divider blockquote {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+    }
+
+    .quote-overlay {
+      padding: 4rem 2rem;
+    }
+
+    section {
+      padding: 5rem 2rem;
+    }
+
+    .tension-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .tension-card {
+      padding: 2rem;
+    }
+
+    .move {
+      grid-template-columns: 80px 1fr;
+      gap: 1.5rem;
+      padding: 2rem 0;
+    }
+
+    .move-icon {
+      width: 48px;
+      height: 48px;
+    }
+
+    .promise-box {
+      border-radius: 20px;
+      padding: 3rem;
+    }
+
+    .benefits-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .benefit-card {
+      padding: 2rem;
+    }
+
+    .avatar-card {
+      grid-template-columns: auto 1fr;
+      gap: 2rem;
+      padding: 2.5rem;
+    }
+
+    .narrative {
+      padding: 2.5rem;
+    }
+
+    .lead-cta {
+      padding: 5rem 2rem;
+    }
+
+    .modal {
+      border-radius: 20px;
+      padding: 2.5rem;
     }
   }
 </style>
@@ -897,15 +1064,24 @@
 
     <div class="hero-ctas">
       <a href="https://tidycal.com/roldanjorgex/1on1focus" target="_blank" rel="noopener" class="btn btn-primary"><span class="btn-icon">&#x1F4C5;</span> Agendar una sesion</a>
-      <button onclick="openModal()" class="btn btn-secondary"><span class="btn-icon">&#x1F4E5;</span> Descargar el Blueprint</button>
+      <button onclick="openModal()" class="btn btn-secondary"><span class="btn-icon">&#x1F4E5;</span> Descargar Prompts iniciales</button>
     </div>
 
     <div class="hero-hmw">
       &iquest;C&oacute;mo logramos que personas en posiciones de liderazgo pasen de sentirse abrumados con decenas de tareas a lograr avanzar con foco y tomar 3 decisiones claras todos los d&iacute;as &mdash; sin tener que suscribirse a nuevas herramientas complejas?
     </div>
-    <p class="hero-quote">"No hay nada tan inutil como hacer con gran eficiencia lo que no deberia hacerse en absoluto."<span class="author">&mdash; Peter Drucker</span></p>
   </div>
   <span class="scroll-hint">SCROLL</span>
+</div>
+
+<!-- ==================== QUOTE DIVIDER ==================== -->
+<div class="quote-divider">
+  <div class="quote-overlay">
+    <blockquote>
+      &ldquo;No hay nada tan inutil como hacer con gran eficiencia lo que no deberia hacerse en absoluto.&rdquo;
+    </blockquote>
+    <cite>&mdash; Peter Drucker</cite>
+  </div>
 </div>
 
 <!-- ==================== TENSION ==================== -->
@@ -979,7 +1155,7 @@
 <!-- ==================== MOVIMIENTOS ==================== -->
 <section>
   <span class="section-label">03 &mdash; Los movimientos</span>
-  <h2>De ahogado a piloto en 5 semanas</h2>
+  <h2>De abrumado a modo crucero en 5 semanas</h2>
   <p>El sistema evoluciona con vos. Arrancas con lo minimo y sumas solo cuando lo necesitas &mdash; no antes.</p>
 
   <div class="moves">
@@ -1094,9 +1270,9 @@
 
 <!-- ==================== LEAD MAGNET CTA ==================== -->
 <div class="lead-cta">
-  <h2>Descarga el Blueprint gratis</h2>
+  <h2>Descarga los Prompts iniciales gratis</h2>
   <p>El sistema completo de priorizacion con IA en un PDF. Los 5 prompts, la estructura y las reglas &mdash; listo para usar.</p>
-  <button onclick="openModal()" class="btn btn-primary"><span class="btn-icon">&#x1F4E5;</span> Quiero el Blueprint</button>
+  <button onclick="openModal()" class="btn btn-primary"><span class="btn-icon">&#x1F4E5;</span> Quiero los Prompts</button>
 </div>
 
 <!-- ==================== FOOTER ==================== -->
@@ -1111,20 +1287,20 @@
     <button class="modal-close" onclick="closeModal()">&times;</button>
 
     <div id="modalForm">
-      <h3>Descarga el Blueprint</h3>
-      <p class="modal-sub">Dejanos tu email y te enviamos el PDF con el sistema completo de priorizacion con IA.</p>
+      <h3>Descarga los Prompts iniciales</h3>
+      <p class="modal-sub">Dejanos tu email y descarga el PDF con los 5 prompts del sistema de priorizacion con IA.</p>
       <form class="modal-form" onsubmit="handleSubmit(event)">
         <input type="text" id="leadName" placeholder="Tu nombre" required>
         <input type="email" id="leadEmail" placeholder="tu@email.com" required>
         <p class="modal-error" id="formError"></p>
-        <button type="submit" class="btn-submit" id="submitBtn">Descargar Blueprint</button>
+        <button type="submit" class="btn-submit" id="submitBtn">Descargar Prompts</button>
       </form>
     </div>
 
     <div id="modalSuccess" class="modal-success" style="display:none">
       <div class="check">&#x2713;</div>
       <h3>Listo, ya es tuyo</h3>
-      <p class="modal-sub">La descarga deberia haber empezado. Si no, <a href="blueprint.pdf" download style="color:var(--orange);font-weight:700">hace click aca</a>.</p>
+      <p class="modal-sub">La descarga deberia haber empezado. Si no, <a href="blueprint.pdf" download="Keep-It-Simple-Prompts.pdf" style="color:var(--orange);font-weight:700">hace click aca</a>.</p>
     </div>
   </div>
 </div>
@@ -1165,7 +1341,7 @@ async function handleSubmit(e) {
         'Content-Type': 'application/json',
         'apikey': SUPABASE_KEY,
         'Authorization': 'Bearer ' + SUPABASE_KEY,
-        'Prefer': 'resolution=merge-duplicates'
+        'Prefer': 'return=minimal,resolution=merge-duplicates'
       },
       body: JSON.stringify({ email, name, source: 'landing-focus' })
     });
@@ -1179,7 +1355,7 @@ async function handleSubmit(e) {
 
     const link = document.createElement('a');
     link.href = 'blueprint.pdf';
-    link.download = 'Keep-It-Simple-Blueprint.pdf';
+    link.download = 'Keep-It-Simple-Prompts.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -1188,7 +1364,7 @@ async function handleSubmit(e) {
     errorEl.textContent = 'Hubo un error. Intenta de nuevo.';
     errorEl.style.display = 'block';
     btn.disabled = false;
-    btn.textContent = 'Descargar Blueprint';
+    btn.textContent = 'Descargar Prompts';
   }
 }
 </script>
