@@ -1300,14 +1300,13 @@
     <div id="modalSuccess" class="modal-success" style="display:none">
       <div class="check">&#x2713;</div>
       <h3>Listo, ya es tuyo</h3>
-      <p class="modal-sub">La descarga deberia haber empezado. Si no, <a href="blueprint.pdf" download="Keep-It-Simple-Prompts.pdf" style="color:var(--orange);font-weight:700">hace click aca</a>.</p>
+      <p class="modal-sub">Revisa tu email &mdash; te enviamos el PDF. Tambien se descargo automaticamente. Si no, <a href="blueprint.pdf" download="Keep-It-Simple-Prompts.pdf" style="color:var(--orange);font-weight:700">hace click aca</a>.</p>
     </div>
   </div>
 </div>
 
 <script>
-const SUPABASE_URL = 'https://tsckgbjxavfyrvyjvbix.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRzY2tnYmp4YXZmeXJ2eWp2Yml4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzMzQzNDcsImV4cCI6MjA4ODkxMDM0N30.HrEq6y-OiFDpndsJrXEjCGDOfFgic_o4S9QDLWJes88';
+const EDGE_FN_URL = 'https://tsckgbjxavfyrvyjvbix.supabase.co/functions/v1/send-lead';
 
 function openModal() {
   document.getElementById('leadModal').classList.add('active');
@@ -1323,6 +1322,10 @@ document.getElementById('leadModal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
 
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+
 async function handleSubmit(e) {
   e.preventDefault();
   const btn = document.getElementById('submitBtn');
@@ -1330,25 +1333,36 @@ async function handleSubmit(e) {
   const name = document.getElementById('leadName').value.trim();
   const email = document.getElementById('leadEmail').value.trim();
 
+  if (!name) {
+    errorEl.textContent = 'Ingresa tu nombre';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  if (!/.+@.+\..+/.test(email)) {
+    errorEl.textContent = 'Ingresa un email valido';
+    errorEl.style.display = 'block';
+    return;
+  }
+
   btn.disabled = true;
   btn.textContent = 'Enviando...';
   errorEl.style.display = 'none';
 
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000);
+
   try {
-    const res = await fetch(SUPABASE_URL + '/rest/v1/leads', {
+    const res = await fetch(EDGE_FN_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_KEY,
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify({ email, name, source: 'landing-focus' })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, source: 'landing-focus' }),
+      signal: controller.signal
     });
 
-    if (!res.ok && res.status !== 409 && res.status !== 409) {
-      throw new Error('Error al guardar');
-    }
+    clearTimeout(timeout);
+
+    if (!res.ok) throw new Error('Error del servidor');
 
     document.getElementById('modalForm').style.display = 'none';
     document.getElementById('modalSuccess').style.display = 'block';
@@ -1361,7 +1375,10 @@ async function handleSubmit(e) {
     document.body.removeChild(link);
 
   } catch (err) {
-    errorEl.textContent = 'Hubo un error. Intenta de nuevo.';
+    clearTimeout(timeout);
+    errorEl.textContent = err.name === 'AbortError'
+      ? 'Tardo demasiado. Intenta de nuevo.'
+      : 'Hubo un error. Intenta de nuevo.';
     errorEl.style.display = 'block';
     btn.disabled = false;
     btn.textContent = 'Descargar Prompts';
