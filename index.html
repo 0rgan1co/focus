@@ -1038,40 +1038,186 @@
       padding: 2.5rem;
     }
   }
+
+  /* -- STICKY NAV -- */
+  .sticky-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.25rem;
+    background: rgba(255,249,244,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .sticky-nav.visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-brand {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+
+  .btn-nav {
+    padding: 0.55rem 1.2rem;
+    font-size: 0.8rem;
+    width: auto;
+    border-radius: 100px;
+  }
+
+  /* -- HMW TRANSITION -- */
+  .hmw-transition {
+    padding: 2rem 1.25rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hmw-inner {
+    max-width: 800px;
+    width: 100%;
+  }
+
+  /* -- CTA CONTEXT -- */
+  .cta-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .cta-wrapper .btn {
+    width: 100%;
+  }
+
+  .cta-context {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-top: 0.4rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* -- TIMELINE CONNECTOR -- */
+  .move {
+    position: relative;
+  }
+
+  .move:not(:last-child) .move-phase::after {
+    content: '';
+    position: absolute;
+    top: 56px;
+    left: 28px;
+    width: 2px;
+    bottom: 0;
+    background: var(--border);
+  }
+
+  /* -- REDUCED MOTION -- */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* -- CONTRAST FIX -- */
+  .section-label,
+  .move-week,
+  .trait,
+  .social-proof-text,
+  .cta-context {
+    color: #595959;
+  }
+
+  /* -- DESKTOP OVERRIDES -- */
+  @media (min-width: 640px) {
+    .sticky-nav {
+      padding: 0.75rem 2rem;
+    }
+
+    .nav-brand {
+      font-size: 0.85rem;
+    }
+
+    .btn-nav {
+      padding: 0.6rem 1.5rem;
+      font-size: 0.85rem;
+    }
+
+    .hmw-transition {
+      padding: 3rem 2rem;
+    }
+
+    .cta-wrapper {
+      width: auto;
+    }
+
+    .cta-wrapper .btn {
+      width: auto;
+    }
+
+    .move:not(:last-child) .move-phase::after {
+      top: 62px;
+      left: 40px;
+    }
+  }
 </style>
 </head>
 <body>
 
+<!-- ==================== NAV STICKY ==================== -->
+<nav class="sticky-nav" id="stickyNav" aria-label="Navegacion principal">
+  <span class="nav-brand">Keep It Simple</span>
+  <a href="https://tidycal.com/roldanjorgex/1on1focus" target="_blank" rel="noopener" class="btn btn-primary btn-nav">Agendar sesion</a>
+</nav>
+
 <!-- ==================== HERO ==================== -->
-<div class="hero">
+<header class="hero">
   <div class="hero-content">
     <span class="hero-badge">Keep It Simple</span>
     <h1>Deja de organizar.<br>Empeza a <span class="highlight">decidir.</span></h1>
-    <p class="hero-sub">Un sistema de priorizacion con IA que cabe en 3 tareas por dia, se configura en una hora, y evoluciona con vos.</p>
+    <p class="hero-sub">3 tareas por dia &middot; 1 hora de setup &middot; evoluciona con vos</p>
 
     <div class="hero-social-proof">
-      <div class="avatar-stack">
-        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" alt="Founder">
-        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face" alt="Directora">
-        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face" alt="Founder">
-        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face" alt="Emprendedora">
-        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face" alt="Director">
-      </div>
       <div class="social-proof-text">
-        <strong>Founders y directores</strong> que ya<br>priorizan con IA cada manana
+        Validado con <strong>founders y directores</strong> en LATAM
       </div>
     </div>
 
     <div class="hero-ctas">
-      <a href="https://tidycal.com/roldanjorgex/1on1focus" target="_blank" rel="noopener" class="btn btn-primary"><span class="btn-icon">&#x1F4C5;</span> Agendar una sesion</a>
+      <div class="cta-wrapper">
+        <a href="https://tidycal.com/roldanjorgex/1on1focus" target="_blank" rel="noopener" class="btn btn-primary"><span class="btn-icon">&#x1F4C5;</span> Agendar una sesion</a>
+        <span class="cta-context">30 min &middot; gratis &middot; por videollamada</span>
+      </div>
       <button onclick="openModal()" class="btn btn-secondary"><span class="btn-icon">&#x1F4E5;</span> Descargar Prompts iniciales</button>
     </div>
+  </div>
+  <span class="scroll-hint" aria-hidden="true">&#x2193;</span>
+</header>
 
+<!-- ==================== HMW TRANSITION ==================== -->
+<div class="hmw-transition">
+  <div class="hmw-inner">
     <div class="hero-hmw">
-      &iquest;C&oacute;mo logramos que personas en posiciones de liderazgo pasen de sentirse abrumados con decenas de tareas a lograr avanzar con foco y tomar 3 decisiones claras todos los d&iacute;as &mdash; sin tener que suscribirse a nuevas herramientas complejas?
+      &iquest;C&oacute;mo logramos que lideres pasen de sentirse abrumados a tomar 3 decisiones claras cada dia &mdash; sin herramientas complejas?
     </div>
   </div>
-  <span class="scroll-hint">SCROLL</span>
 </div>
 
 <!-- ==================== QUOTE DIVIDER ==================== -->
@@ -1085,6 +1231,7 @@
 </div>
 
 <!-- ==================== TENSION ==================== -->
+<main>
 <section>
   <span class="section-label">01 &mdash; La tension</span>
   <h2>Dos realidades</h2>
@@ -1269,6 +1416,7 @@
 </section>
 
 <!-- ==================== LEAD MAGNET CTA ==================== -->
+</main>
 <div class="lead-cta">
   <h2>Descarga los Prompts iniciales gratis</h2>
   <p>El sistema completo de priorizacion con IA en un PDF. Los 5 prompts, la estructura y las reglas &mdash; listo para usar.</p>
@@ -1276,13 +1424,12 @@
 </div>
 
 <!-- ==================== FOOTER ==================== -->
-<div class="footer">
-  <p>Propuesta en construccion &mdash; basada en la experiencia real de founders que ya lo usan. Los textos son hipotesis para validar con los primeros 5 usuarios.</p>
+<footer class="footer">
   <span class="tag">Keep It Simple &middot; Jota + Gaspar &middot; 2026</span>
-</div>
+</footer>
 
 <!-- ==================== MODAL ==================== -->
-<div class="modal-overlay" id="leadModal">
+<div class="modal-overlay" id="leadModal" role="dialog" aria-modal="true" aria-label="Descargar Prompts">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">&times;</button>
 
@@ -1308,9 +1455,20 @@
 <script>
 const EDGE_FN_URL = 'https://tsckgbjxavfyrvyjvbix.supabase.co/functions/v1/send-lead';
 
+// -- Sticky nav --
+const stickyNav = document.getElementById('stickyNav');
+const heroEl = document.querySelector('.hero');
+const observer = new IntersectionObserver(function(entries) {
+  stickyNav.classList.toggle('visible', !entries[0].isIntersecting);
+}, { threshold: 0 });
+observer.observe(heroEl);
+
+// -- Modal --
 function openModal() {
-  document.getElementById('leadModal').classList.add('active');
+  const modal = document.getElementById('leadModal');
+  modal.classList.add('active');
   document.body.style.overflow = 'hidden';
+  modal.querySelector('input').focus();
 }
 
 function closeModal() {
@@ -1324,6 +1482,15 @@ document.getElementById('leadModal').addEventListener('click', function(e) {
 
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeModal();
+  // Focus trap
+  if (e.key === 'Tab') {
+    var modal = document.getElementById('leadModal');
+    if (!modal.classList.contains('active')) return;
+    var focusable = modal.querySelectorAll('input, button, a[href]');
+    var first = focusable[0], last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
 });
 
 async function handleSubmit(e) {
