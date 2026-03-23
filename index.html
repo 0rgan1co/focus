@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Keep It Simple — Priorizacion con IA para founders</title>
-<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -41,9 +41,26 @@
     text-align: center;
     padding: 2rem;
     position: relative;
-    background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='0' x2='0' y1='0' y2='100%25' gradientTransform='rotate(180,500,500)'%3E%3Cstop offset='0' stop-color='%23fff9f4'/%3E%3Cstop offset='1' stop-color='%23ff633d' stop-opacity='0.08'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='0' y='0' fill='url(%23a)' width='100%25' height='100%25'/%3E%3C/svg%3E");
-    background-size: cover;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 80%, rgba(255,99,61,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(136,219,216,0.1) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 50% 50%, rgba(255,183,59,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .hero-badge {
@@ -60,17 +77,29 @@
   }
 
   .hero h1 {
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    max-width: 800px;
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    max-width: 850px;
     margin-bottom: 1.5rem;
     color: var(--black);
   }
 
   .hero h1 .highlight {
     color: var(--orange);
+    position: relative;
+  }
+
+  .hero h1 .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 0.05em;
+    left: -0.05em;
+    right: -0.05em;
+    height: 0.12em;
+    background: rgba(255,99,61,0.2);
+    border-radius: 4px;
   }
 
   .hero-sub {
@@ -78,9 +107,101 @@
     color: var(--text-dim);
     max-width: 600px;
     font-weight: 300;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
   }
 
+  /* -- HERO PEOPLE -- */
+  .hero-social-proof {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .avatar-stack {
+    display: flex;
+  }
+
+  .avatar-stack img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid var(--white);
+    margin-left: -10px;
+    object-fit: cover;
+  }
+
+  .avatar-stack img:first-child {
+    margin-left: 0;
+  }
+
+  .social-proof-text {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    text-align: left;
+    line-height: 1.4;
+  }
+
+  .social-proof-text strong {
+    color: var(--black);
+  }
+
+  /* -- CTA BUTTONS -- */
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.95rem 2rem;
+    border-radius: 100px;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-primary {
+    background: var(--orange);
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(255,99,61,0.35);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 8px 30px rgba(255,99,61,0.45);
+  }
+
+  .btn-secondary {
+    background: #fff;
+    color: var(--black);
+    border: 2px solid var(--border);
+    box-shadow: 0 2px 12px rgba(38,38,38,0.06);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--orange);
+    color: var(--orange);
+    box-shadow: 0 4px 16px rgba(255,99,61,0.1);
+  }
+
+  .btn-icon {
+    font-size: 1.1em;
+  }
+
+  /* -- HMW -- */
   .hero-hmw {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -127,57 +248,6 @@
     font-size: 0.8rem;
     color: var(--black);
     letter-spacing: 0.03em;
-  }
-
-  /* -- CTA BUTTONS -- */
-  .hero-ctas {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 3rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.85rem 1.8rem;
-    border-radius: 100px;
-    font-family: 'Lato', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 700;
-    text-decoration: none;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    cursor: pointer;
-    border: none;
-  }
-
-  .btn:hover {
-    transform: translateY(-2px);
-  }
-
-  .btn-primary {
-    background: var(--orange);
-    color: #fff;
-    box-shadow: 0 4px 16px rgba(255,99,61,0.3);
-  }
-
-  .btn-primary:hover {
-    box-shadow: 0 6px 24px rgba(255,99,61,0.4);
-  }
-
-  .btn-secondary {
-    background: #fff;
-    color: var(--black);
-    border: 2px solid var(--border);
-    box-shadow: 0 2px 12px rgba(38,38,38,0.06);
-  }
-
-  .btn-secondary:hover {
-    border-color: var(--orange);
-    color: var(--orange);
-    box-shadow: 0 4px 16px rgba(255,99,61,0.1);
   }
 
   .scroll-hint {
@@ -596,6 +666,27 @@
     color: var(--orange);
   }
 
+  /* -- LEAD MAGNET CTA -- */
+  .lead-cta {
+    text-align: center;
+    padding: 5rem 2rem;
+    background: linear-gradient(180deg, var(--white) 0%, rgba(255,99,61,0.04) 100%);
+  }
+
+  .lead-cta h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--black);
+  }
+
+  .lead-cta p {
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    max-width: 500px;
+    margin: 0 auto 2rem;
+  }
+
   /* -- FOOTER -- */
   .footer {
     text-align: center;
@@ -620,11 +711,164 @@
     color: var(--orange);
   }
 
+  /* -- MODAL -- */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(38,38,38,0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .modal-overlay.active {
+    display: flex;
+  }
+
+  .modal {
+    background: #fff;
+    border-radius: 20px;
+    padding: 2.5rem;
+    max-width: 440px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(38,38,38,0.2);
+    animation: modalIn 0.3s ease;
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: var(--white);
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+
+  .modal-close:hover {
+    background: rgba(255,73,73,0.1);
+    color: var(--red);
+  }
+
+  .modal h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--black);
+  }
+
+  .modal .modal-sub {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+
+  .modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .modal-form input {
+    padding: 0.85rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    color: var(--black);
+    background: var(--white);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .modal-form input:focus {
+    border-color: var(--orange);
+  }
+
+  .modal-form input::placeholder {
+    color: #aaa;
+  }
+
+  .modal-form .btn-submit {
+    padding: 0.9rem;
+    border: none;
+    border-radius: 10px;
+    background: var(--orange);
+    color: #fff;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(255,99,61,0.3);
+  }
+
+  .modal-form .btn-submit:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(255,99,61,0.4);
+  }
+
+  .modal-form .btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .modal-success {
+    text-align: center;
+    padding: 1rem 0;
+  }
+
+  .modal-success .check {
+    width: 56px;
+    height: 56px;
+    background: rgba(5,145,97,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin: 0 auto 1rem;
+  }
+
+  .modal-error {
+    color: var(--red);
+    font-size: 0.8rem;
+    margin-top: -0.3rem;
+    display: none;
+  }
+
   /* -- RESPONSIVE -- */
   @media (max-width: 640px) {
     .move {
       grid-template-columns: 60px 1fr;
       gap: 1rem;
+    }
+    .hero-social-proof {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .social-proof-text {
+      text-align: center;
     }
   }
 </style>
@@ -633,25 +877,42 @@
 
 <!-- ==================== HERO ==================== -->
 <div class="hero">
-  <span class="hero-badge">Keep It Simple</span>
-  <h1>Deja de organizar.<br>Empeza a <span class="highlight">decidir.</span></h1>
-  <p class="hero-sub">Un sistema de priorizacion con IA que cabe en 3 tareas por dia, se configura en una hora, y evoluciona con vos.</p>
-  <div class="hero-ctas">
-    <a href="https://tidycal.com/roldanjorgex/1on1focus" target="_blank" rel="noopener" class="btn btn-primary">Agendar una sesion</a>
-    <a href="prompts-onboarding.md" download class="btn btn-secondary">Descargar prompts</a>
+  <div class="hero-content">
+    <span class="hero-badge">Keep It Simple</span>
+    <h1>Deja de organizar.<br>Empeza a <span class="highlight">decidir.</span></h1>
+    <p class="hero-sub">Un sistema de priorizacion con IA que cabe en 3 tareas por dia, se configura en una hora, y evoluciona con vos.</p>
+
+    <div class="hero-social-proof">
+      <div class="avatar-stack">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" alt="Founder">
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face" alt="Directora">
+        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face" alt="Founder">
+        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face" alt="Emprendedora">
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face" alt="Director">
+      </div>
+      <div class="social-proof-text">
+        <strong>Founders y directores</strong> que ya<br>priorizan con IA cada manana
+      </div>
+    </div>
+
+    <div class="hero-ctas">
+      <a href="https://tidycal.com/roldanjorgex/1on1focus" target="_blank" rel="noopener" class="btn btn-primary"><span class="btn-icon">&#x1F4C5;</span> Agendar una sesion</a>
+      <button onclick="openModal()" class="btn btn-secondary"><span class="btn-icon">&#x1F4E5;</span> Descargar el Blueprint</button>
+    </div>
+
+    <div class="hero-hmw">
+      &iquest;C&oacute;mo logramos que personas en posiciones de liderazgo pasen de sentirse abrumados con decenas de tareas a lograr avanzar con foco y tomar 3 decisiones claras todos los d&iacute;as &mdash; sin tener que suscribirse a nuevas herramientas complejas?
+    </div>
+    <p class="hero-quote">"No hay nada tan inutil como hacer con gran eficiencia lo que no deberia hacerse en absoluto."<span class="author">&mdash; Peter Drucker</span></p>
   </div>
-  <div class="hero-hmw">
-    &iquest;C&oacute;mo logramos que personas en posiciones de liderazgo pasen de sentirse abrumados con decenas de tareas a tomar 3 decisiones claras a la ma&ntilde;ana y 3 a la tarde — sin tener que suscribirse a nuevas herramientas complejas?
-  </div>
-  <p class="hero-quote">"No hay nada tan inutil como hacer con gran eficiencia lo que no deberia hacerse en absoluto."<span class="author">— Peter Drucker</span></p>
   <span class="scroll-hint">SCROLL</span>
 </div>
 
 <!-- ==================== TENSION ==================== -->
 <section>
-  <span class="section-label">01 — La tension</span>
+  <span class="section-label">01 &mdash; La tension</span>
   <h2>Dos realidades</h2>
-  <p>La mayoria de los founders y directores que conocemos viven en la columna izquierda. El sistema existe para llevarlos a la derecha — sin planillas, sin dashboards, sin cursos de productividad.</p>
+  <p>La mayoria de los founders y directores que conocemos viven en la columna izquierda. El sistema existe para llevarlos a la derecha &mdash; sin planillas, sin dashboards, sin cursos de productividad.</p>
 
   <div class="tension-grid">
     <div class="tension-card before">
@@ -661,7 +922,7 @@
         <li>Arrancas el dia abriendo el mail y reaccionando</li>
         <li>Tenes 15 pestanas abiertas y ninguna prioridad clara</li>
         <li>Las tareas comerciales se postergan siempre</li>
-        <li>Probaste apps, bullet journal, dashboards — nada pego</li>
+        <li>Probaste apps, bullet journal, dashboards &mdash; nada pego</li>
         <li>Al final del dia no sabes si avanzaste o solo apagaste incendios</li>
       </ul>
     </div>
@@ -670,7 +931,7 @@
       <h3>Arrancas con 3 decisiones claras</h3>
       <ul>
         <li>Un ritual de 5 minutos que te ordena la manana</li>
-        <li>1 tarea dificil + 2 alcanzables — nada mas</li>
+        <li>1 tarea dificil + 2 alcanzables &mdash; nada mas</li>
         <li>Lo que no es de hoy, se guarda solo para despues</li>
         <li>Un coach que te conoce y te pregunta lo que no te queres preguntar</li>
         <li>Al final de la semana, ves patrones y ajustas</li>
@@ -681,7 +942,7 @@
 
 <!-- ==================== PARA QUIEN ==================== -->
 <section>
-  <span class="section-label">02 — Para quien</span>
+  <span class="section-label">02 &mdash; Para quien</span>
   <h2>Lideres ocupados con equipos chicos</h2>
   <p>No es para empresas con 200 empleados y un PMO. Es para la persona que hace todo: vende, entrega, gestiona, piensa estrategia y ademas tiene que decidir que hacer primero.</p>
 
@@ -717,9 +978,9 @@
 
 <!-- ==================== MOVIMIENTOS ==================== -->
 <section>
-  <span class="section-label">03 — Los movimientos</span>
+  <span class="section-label">03 &mdash; Los movimientos</span>
   <h2>De ahogado a piloto en 5 semanas</h2>
-  <p>El sistema evoluciona con vos. Arrancas con lo minimo y sumas solo cuando lo necesitas — no antes.</p>
+  <p>El sistema evoluciona con vos. Arrancas con lo minimo y sumas solo cuando lo necesitas &mdash; no antes.</p>
 
   <div class="moves">
     <div class="move m1">
@@ -730,7 +991,7 @@
       <div class="move-content">
         <h3>El Espejo</h3>
         <div class="subtitle">Entende como priorizas hoy (10 min)</div>
-        <p>Le contas a Claude como es tu dia. Claude te devuelve un diagnostico de 300 palabras: que te funciona y que no. Primer momento de claridad — y ya estas usando IA.</p>
+        <p>Le contas a Claude como es tu dia. Claude te devuelve un diagnostico de 300 palabras: que te funciona y que no. Primer momento de claridad &mdash; y ya estas usando IA.</p>
         <span class="output">diagnostico.md</span>
       </div>
     </div>
@@ -791,24 +1052,24 @@
 
 <!-- ==================== PROMESA ==================== -->
 <section>
-  <span class="section-label">04 — La promesa</span>
+  <span class="section-label">04 &mdash; La promesa</span>
   <h2>Lo que vas a obtener</h2>
 
   <div class="promise-box">
-    <p class="promise-text">En una hora configuras un sistema que cada manana te da 3 tareas claras — sin apps nuevas, sin dashboards, sin mantenimiento.</p>
-    <p class="promise-sub">Ayudamos a founders y directores a pasar de reaccionar a decidir, usando IA como coach de priorizacion — no como otra herramienta mas.</p>
+    <p class="promise-text">En una hora configuras un sistema que cada manana te da 3 tareas claras &mdash; sin apps nuevas, sin dashboards, sin mantenimiento.</p>
+    <p class="promise-sub">Ayudamos a founders y directores a pasar de reaccionar a decidir, usando IA como coach de priorizacion &mdash; no como otra herramienta mas.</p>
   </div>
 
   <div class="benefits-grid">
     <div class="benefit-card">
       <div class="benefit-icon">&#x1F3E2;</div>
       <h4>Negocio</h4>
-      <p>Las tareas que generan ingresos dejan de postergarse. El ritual obliga a poner la dificil primero — y la dificil casi siempre es la comercial.</p>
+      <p>Las tareas que generan ingresos dejan de postergarse. El ritual obliga a poner la dificil primero &mdash; y la dificil casi siempre es la comercial.</p>
     </div>
     <div class="benefit-card">
       <div class="benefit-icon">&#x1F464;</div>
       <h4>Personas</h4>
-      <p>Menos ansiedad de "no se por donde arrancar". La sensacion de cerrar el dia habiendo avanzado en lo que importa — no solo en lo urgente.</p>
+      <p>Menos ansiedad de "no se por donde arrancar". La sensacion de cerrar el dia habiendo avanzado en lo que importa &mdash; no solo en lo urgente.</p>
     </div>
     <div class="benefit-card">
       <div class="benefit-icon">&#x1F30D;</div>
@@ -820,22 +1081,117 @@
 
 <!-- ==================== NARRATIVA ==================== -->
 <section>
-  <span class="section-label">05 — La narrativa</span>
+  <span class="section-label">05 &mdash; La narrativa</span>
   <h2>En palabras simples</h2>
 
   <div class="narrative">
     <p>Todos los founders que conocemos comparten el mismo problema: tienen mas cosas en la cabeza que horas en el dia. Probaron apps, probaron metodos, probaron dashboards. Algunos funcionaron un mes. La mayoria, una semana.</p>
-    <p>Lo que descubrimos es que el problema no es la herramienta — es que nadie les hace las preguntas correctas cada manana. "Que es lo mas dificil que estas evitando?" "Esto realmente es de hoy o puede esperar?" "Si solo pudieras hacer 3 cosas, cuales serian?"</p>
+    <p>Lo que descubrimos es que el problema no es la herramienta &mdash; es que nadie les hace las preguntas correctas cada manana. "Que es lo mas dificil que estas evitando?" "Esto realmente es de hoy o puede esperar?" "Si solo pudieras hacer 3 cosas, cuales serian?"</p>
     <p><strong>Keep It Simple</strong> es un sistema de priorizacion que usa inteligencia artificial como coach personal. No es una app. No es un curso. Es una conversacion de 5 minutos cada manana que te deja 3 tareas claras en la mesa: una dificil y dos alcanzables. Lo que no es de hoy, se guarda. Lo que hiciste, se revisa. Lo que repetis sin resultado, se cuestiona.</p>
     <p>Se configura en una hora. Se sostiene en 5 minutos por dia. Y evoluciona solo cuando vos lo pedis.</p>
   </div>
 </section>
 
+<!-- ==================== LEAD MAGNET CTA ==================== -->
+<div class="lead-cta">
+  <h2>Descarga el Blueprint gratis</h2>
+  <p>El sistema completo de priorizacion con IA en un PDF. Los 5 prompts, la estructura y las reglas &mdash; listo para usar.</p>
+  <button onclick="openModal()" class="btn btn-primary"><span class="btn-icon">&#x1F4E5;</span> Quiero el Blueprint</button>
+</div>
+
 <!-- ==================== FOOTER ==================== -->
 <div class="footer">
-  <p>Propuesta en construccion — basada en la experiencia real de founders que ya lo usan. Los textos son hipotesis para validar con los primeros 5 usuarios.</p>
+  <p>Propuesta en construccion &mdash; basada en la experiencia real de founders que ya lo usan. Los textos son hipotesis para validar con los primeros 5 usuarios.</p>
   <span class="tag">Keep It Simple &middot; Jota + Gaspar &middot; 2026</span>
 </div>
+
+<!-- ==================== MODAL ==================== -->
+<div class="modal-overlay" id="leadModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+
+    <div id="modalForm">
+      <h3>Descarga el Blueprint</h3>
+      <p class="modal-sub">Dejanos tu email y te enviamos el PDF con el sistema completo de priorizacion con IA.</p>
+      <form class="modal-form" onsubmit="handleSubmit(event)">
+        <input type="text" id="leadName" placeholder="Tu nombre" required>
+        <input type="email" id="leadEmail" placeholder="tu@email.com" required>
+        <p class="modal-error" id="formError"></p>
+        <button type="submit" class="btn-submit" id="submitBtn">Descargar Blueprint</button>
+      </form>
+    </div>
+
+    <div id="modalSuccess" class="modal-success" style="display:none">
+      <div class="check">&#x2713;</div>
+      <h3>Listo, ya es tuyo</h3>
+      <p class="modal-sub">La descarga deberia haber empezado. Si no, <a href="blueprint.pdf" download style="color:var(--orange);font-weight:700">hace click aca</a>.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://tsckgbjxavfyrvyjvbix.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRzY2tnYmp4YXZmeXJ2eWp2Yml4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzMzQzNDcsImV4cCI6MjA4ODkxMDM0N30.HrEq6y-OiFDpndsJrXEjCGDOfFgic_o4S9QDLWJes88';
+
+function openModal() {
+  document.getElementById('leadModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('leadModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('leadModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+async function handleSubmit(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const errorEl = document.getElementById('formError');
+  const name = document.getElementById('leadName').value.trim();
+  const email = document.getElementById('leadEmail').value.trim();
+
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+  errorEl.style.display = 'none';
+
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/leads', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'resolution=merge-duplicates'
+      },
+      body: JSON.stringify({ email, name, source: 'landing-focus' })
+    });
+
+    if (!res.ok && res.status !== 409) {
+      throw new Error('Error al guardar');
+    }
+
+    document.getElementById('modalForm').style.display = 'none';
+    document.getElementById('modalSuccess').style.display = 'block';
+
+    const link = document.createElement('a');
+    link.href = 'blueprint.pdf';
+    link.download = 'Keep-It-Simple-Blueprint.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+  } catch (err) {
+    errorEl.textContent = 'Hubo un error. Intenta de nuevo.';
+    errorEl.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Descargar Blueprint';
+  }
+}
+</script>
 
 </body>
 </html>
