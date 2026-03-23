@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keep It Simple — Priorizacion con IA para founders</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --orange: #ff633d;
+    --white: #fff9f4;
+    --black: #262626;
+    --yellow: #ffb83b;
+    --pink: #fa96b2;
+    --red: #ff4949;
+    --blue: #88dbd8;
+    --green: #059161;
+    --purple: #baa3ff;
+    --border: rgba(38,38,38,0.1);
+    --text-dim: #666;
+    --surface: rgba(255,255,255,0.6);
+  }
+
+  body {
+    font-family: 'Lato', -apple-system, sans-serif;
+    background-color: var(--white);
+    color: var(--black);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* -- HERO -- */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='0' x2='0' y1='0' y2='100%25' gradientTransform='rotate(180,500,500)'%3E%3Cstop offset='0' stop-color='%23fff9f4'/%3E%3Cstop offset='1' stop-color='%23ff633d' stop-opacity='0.08'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='0' y='0' fill='url(%23a)' width='100%25' height='100%25'/%3E%3C/svg%3E");
+    background-size: cover;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    border: 2px solid var(--orange);
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 2rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    max-width: 800px;
+    margin-bottom: 1.5rem;
+    color: var(--black);
+  }
+
+  .hero h1 .highlight {
+    color: var(--orange);
+  }
+
+  .hero-sub {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    color: var(--text-dim);
+    max-width: 600px;
+    font-weight: 300;
+    margin-bottom: 3rem;
+  }
+
+  .hero-hmw {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem 2.5rem;
+    max-width: 700px;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--black);
+    position: relative;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .hero-hmw::before {
+    content: 'HMW';
+    position: absolute;
+    top: -0.6rem;
+    left: 1.5rem;
+    background: var(--white);
+    padding: 0 0.5rem;
+    font-size: 0.65rem;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--orange);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  /* -- SECTIONS -- */
+  section {
+    padding: 5rem 2rem;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1rem;
+  }
+
+  section h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+    color: var(--black);
+  }
+
+  section p {
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    max-width: 650px;
+    margin-bottom: 1rem;
+  }
+
+  /* -- TENSION: ANTES / DESPUES -- */
+  .tension-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 640px) {
+    .tension-grid { grid-template-columns: 1fr; }
+  }
+
+  .tension-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(38,38,38,0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .tension-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(38,38,38,0.08);
+  }
+
+  .tension-card.before {
+    border-left: 3px solid var(--red);
+  }
+
+  .tension-card.after {
+    border-left: 3px solid var(--green);
+  }
+
+  .tension-card .card-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    margin-bottom: 1.2rem;
+  }
+
+  .before .card-tag {
+    background: rgba(255,73,73,0.1);
+    color: var(--red);
+  }
+
+  .after .card-tag {
+    background: rgba(5,145,97,0.1);
+    color: var(--green);
+  }
+
+  .tension-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    color: var(--black);
+  }
+
+  .tension-card ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .tension-card li {
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .tension-card li::before {
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .before li::before { content: '\00D7'; color: var(--red); }
+  .after li::before { content: '\2713'; color: var(--green); }
+
+  /* -- MOVES TIMELINE -- */
+  .moves {
+    margin-top: 3rem;
+  }
+
+  .move {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .move:last-child { border-bottom: none; }
+
+  .move-phase {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .move-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .move-week {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .move-content h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: var(--black);
+  }
+
+  .move-content .subtitle {
+    color: var(--orange);
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+
+  .move-content p {
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    margin-bottom: 0;
+  }
+
+  .move-content .output {
+    display: inline-block;
+    margin-top: 0.8rem;
+    padding: 0.3rem 0.8rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--text-dim);
+  }
+
+  .m1 .move-icon { background: var(--red); }
+  .m2 .move-icon { background: var(--blue); color: var(--black); }
+  .m3 .move-icon { background: var(--green); }
+  .m4 .move-icon { background: var(--yellow); color: var(--black); }
+  .m5 .move-icon { background: var(--purple); }
+
+  /* -- PROMISE -- */
+  .promise-box {
+    background: #fff;
+    border: 2px solid var(--orange);
+    border-radius: 20px;
+    padding: 3rem;
+    text-align: center;
+    margin-top: 3rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(255,99,61,0.08);
+  }
+
+  .promise-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--yellow), var(--orange), var(--pink));
+    border-radius: 20px 20px 0 0;
+  }
+
+  .promise-box .promise-text {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    font-weight: 700;
+    line-height: 1.4;
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+    color: var(--black);
+  }
+
+  .promise-box .promise-sub {
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* -- BENEFITS GRID -- */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 640px) {
+    .benefits-grid { grid-template-columns: 1fr; }
+  }
+
+  .benefit-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 2px 12px rgba(38,38,38,0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .benefit-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(38,38,38,0.08);
+  }
+
+  .benefit-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .benefit-card:nth-child(1) .benefit-icon {
+    background: rgba(255,99,61,0.1);
+  }
+
+  .benefit-card:nth-child(2) .benefit-icon {
+    background: rgba(136,219,216,0.2);
+  }
+
+  .benefit-card:nth-child(3) .benefit-icon {
+    background: rgba(5,145,97,0.1);
+  }
+
+  .benefit-card h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    color: var(--black);
+  }
+
+  .benefit-card p {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 0;
+  }
+
+  /* -- AVATAR -- */
+  .avatar-section {
+    margin-top: 3rem;
+  }
+
+  .avatar-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2.5rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2rem;
+    align-items: start;
+    box-shadow: 0 2px 12px rgba(38,38,38,0.04);
+    transition: transform 0.2s ease;
+  }
+
+  .avatar-card:hover {
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 640px) {
+    .avatar-card { grid-template-columns: 1fr; }
+  }
+
+  .avatar-visual {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+  }
+
+  .avatar-card:first-child .avatar-visual {
+    background: linear-gradient(135deg, rgba(255,99,61,0.15), rgba(255,99,61,0.3));
+  }
+
+  .avatar-card:last-child .avatar-visual {
+    background: linear-gradient(135deg, rgba(5,145,97,0.15), rgba(5,145,97,0.3));
+  }
+
+  .avatar-details h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    color: var(--black);
+  }
+
+  .avatar-details .role {
+    color: var(--orange);
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .avatar-details .traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .trait {
+    padding: 0.3rem 0.8rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+
+  /* -- NARRATIVE -- */
+  .narrative {
+    background: #fff;
+    border-left: 4px solid var(--orange);
+    padding: 2.5rem;
+    border-radius: 0 16px 16px 0;
+    margin-top: 3rem;
+    box-shadow: 0 2px 12px rgba(38,38,38,0.04);
+  }
+
+  .narrative p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--black);
+    max-width: none;
+    margin-bottom: 0;
+  }
+
+  .narrative p + p {
+    margin-top: 1rem;
+  }
+
+  .narrative strong {
+    color: var(--orange);
+  }
+
+  /* -- FOOTER -- */
+  .footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer p {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .footer .tag {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+
+  /* -- RESPONSIVE -- */
+  @media (max-width: 640px) {
+    .move {
+      grid-template-columns: 60px 1fr;
+      gap: 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<div class="hero">
+  <span class="hero-badge">Keep It Simple</span>
+  <h1>Deja de organizar.<br>Empeza a <span class="highlight">decidir.</span></h1>
+  <p class="hero-sub">Un sistema de priorizacion con IA que cabe en 3 tareas por dia, se configura en una hora, y evoluciona con vos.</p>
+  <div class="hero-hmw">
+    Como podriamos ayudar a lideres ocupados a pasar de sentirse ahogados en tareas a tomar 3 decisiones claras cada manana — sin agregar otra herramienta compleja a su vida?
+  </div>
+  <span class="scroll-hint">SCROLL</span>
+</div>
+
+<!-- ==================== TENSION ==================== -->
+<section>
+  <span class="section-label">01 — La tension</span>
+  <h2>Dos realidades</h2>
+  <p>La mayoria de los founders y directores que conocemos viven en la columna izquierda. El sistema existe para llevarlos a la derecha — sin planillas, sin dashboards, sin cursos de productividad.</p>
+
+  <div class="tension-grid">
+    <div class="tension-card before">
+      <span class="card-tag">Hoy</span>
+      <h3>El dia te pasa por encima</h3>
+      <ul>
+        <li>Arrancas el dia abriendo el mail y reaccionando</li>
+        <li>Tenes 15 pestanas abiertas y ninguna prioridad clara</li>
+        <li>Las tareas comerciales se postergan siempre</li>
+        <li>Probaste apps, bullet journal, dashboards — nada pego</li>
+        <li>Al final del dia no sabes si avanzaste o solo apagaste incendios</li>
+      </ul>
+    </div>
+    <div class="tension-card after">
+      <span class="card-tag">Despues</span>
+      <h3>Arrancas con 3 decisiones claras</h3>
+      <ul>
+        <li>Un ritual de 5 minutos que te ordena la manana</li>
+        <li>1 tarea dificil + 2 alcanzables — nada mas</li>
+        <li>Lo que no es de hoy, se guarda solo para despues</li>
+        <li>Un coach que te conoce y te pregunta lo que no te queres preguntar</li>
+        <li>Al final de la semana, ves patrones y ajustas</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PARA QUIEN ==================== -->
+<section>
+  <span class="section-label">02 — Para quien</span>
+  <h2>Lideres ocupados con equipos chicos</h2>
+  <p>No es para empresas con 200 empleados y un PMO. Es para la persona que hace todo: vende, entrega, gestiona, piensa estrategia y ademas tiene que decidir que hacer primero.</p>
+
+  <div class="avatar-section">
+    <div class="avatar-card" style="margin-bottom: 1.5rem">
+      <div class="avatar-visual">&#x1F680;</div>
+      <div class="avatar-details">
+        <h3>Founder de startup o PYME</h3>
+        <div class="role">2-15 personas en el equipo</div>
+        <div class="traits">
+          <span class="trait">Multitaskea por necesidad</span>
+          <span class="trait">Pipeline inestable</span>
+          <span class="trait">Posterga lo comercial</span>
+          <span class="trait">Probo herramientas y las abandono</span>
+        </div>
+      </div>
+    </div>
+    <div class="avatar-card">
+      <div class="avatar-visual">&#x1F331;</div>
+      <div class="avatar-details">
+        <h3>Director/a de ONG o proyecto social</h3>
+        <div class="role">Equipo chico, impacto grande</div>
+        <div class="traits">
+          <span class="trait">Hace fundraising con 2 personas</span>
+          <span class="trait">Mas tareas que horas</span>
+          <span class="trait">No tiene plata para consultores caros</span>
+          <span class="trait">Necesita resultados, no frameworks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MOVIMIENTOS ==================== -->
+<section>
+  <span class="section-label">03 — Los movimientos</span>
+  <h2>De ahogado a piloto en 5 semanas</h2>
+  <p>El sistema evoluciona con vos. Arrancas con lo minimo y sumas solo cuando lo necesitas — no antes.</p>
+
+  <div class="moves">
+    <div class="move m1">
+      <div class="move-phase">
+        <div class="move-icon">1</div>
+        <span class="move-week">Hoy</span>
+      </div>
+      <div class="move-content">
+        <h3>El Espejo</h3>
+        <div class="subtitle">Entende como priorizas hoy (10 min)</div>
+        <p>Le contas a Claude como es tu dia. Claude te devuelve un diagnostico de 300 palabras: que te funciona y que no. Primer momento de claridad — y ya estas usando IA.</p>
+        <span class="output">diagnostico.md</span>
+      </div>
+    </div>
+
+    <div class="move m2">
+      <div class="move-phase">
+        <div class="move-icon">2</div>
+        <span class="move-week">Hoy</span>
+      </div>
+      <div class="move-content">
+        <h3>Los Principios + El Mapa</h3>
+        <div class="subtitle">Elegi tus reglas y mapea tu informacion (20 min)</div>
+        <p>Claude identifica tus principios implicitos y propone otros. Elegis 3-4 reglas para probar dos semanas. Despues, mapeas donde vive tu informacion y armas una estructura minima: 5 archivos, no mas.</p>
+        <span class="output">principios + estructura del vault</span>
+      </div>
+    </div>
+
+    <div class="move m3">
+      <div class="move-phase">
+        <div class="move-icon">3</div>
+        <span class="move-week">Hoy</span>
+      </div>
+      <div class="move-content">
+        <h3>El Ritual</h3>
+        <div class="subtitle">Tu coach personalizado en 40 lineas (15 min)</div>
+        <p>Con tu diagnostico, tus principios y tu estructura, Claude genera un prompt maestro que suena a alguien que te conoce. Lo probas en el momento. Si las 3 tareas tienen sentido, el sistema ya esta andando.</p>
+        <span class="output">matutino.md / hoy.md (primera corrida real)</span>
+      </div>
+    </div>
+
+    <div class="move m4">
+      <div class="move-phase">
+        <div class="move-icon">4</div>
+        <span class="move-week">Sem 3</span>
+      </div>
+      <div class="move-content">
+        <h3>La Revision</h3>
+        <div class="subtitle">Mira atras para mirar adelante (cuando lo necesites)</div>
+        <p>Despues de 2-3 semanas usando el matutino, sumas un ritual semanal: que completaste, que evitaste, que patrones ves. Define los 2-3 focos de la semana siguiente.</p>
+        <span class="output">semanal.md / focos.md</span>
+      </div>
+    </div>
+
+    <div class="move m5">
+      <div class="move-phase">
+        <div class="move-icon">5</div>
+        <span class="move-week">Sem 5+</span>
+      </div>
+      <div class="move-content">
+        <h3>La Delegacion</h3>
+        <div class="subtitle">Saca cosas de tu plato (cuando te satures)</div>
+        <p>Cuando sentis que no alcanza con 3 tareas, en vez de agregar mas horas, sacamos cosas de tu plato. Matriz simple: lo tengo que hacer yo? Si otro lo puede hacer al 80%, alcanza.</p>
+        <span class="output">delegar.md / plan de delegacion</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PROMESA ==================== -->
+<section>
+  <span class="section-label">04 — La promesa</span>
+  <h2>Lo que vas a obtener</h2>
+
+  <div class="promise-box">
+    <p class="promise-text">En una hora configuras un sistema que cada manana te da 3 tareas claras — sin apps nuevas, sin dashboards, sin mantenimiento.</p>
+    <p class="promise-sub">Ayudamos a founders y directores a pasar de reaccionar a decidir, usando IA como coach de priorizacion — no como otra herramienta mas.</p>
+  </div>
+
+  <div class="benefits-grid">
+    <div class="benefit-card">
+      <div class="benefit-icon">&#x1F3E2;</div>
+      <h4>Negocio</h4>
+      <p>Las tareas que generan ingresos dejan de postergarse. El ritual obliga a poner la dificil primero — y la dificil casi siempre es la comercial.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">&#x1F464;</div>
+      <h4>Personas</h4>
+      <p>Menos ansiedad de "no se por donde arrancar". La sensacion de cerrar el dia habiendo avanzado en lo que importa — no solo en lo urgente.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">&#x1F30D;</div>
+      <h4>Ecosistema</h4>
+      <p>ONGs con equipos de 2-3 personas pueden optimizar fundraising sin contratar consultores. Mas impacto con el mismo equipo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== NARRATIVA ==================== -->
+<section>
+  <span class="section-label">05 — La narrativa</span>
+  <h2>En palabras simples</h2>
+
+  <div class="narrative">
+    <p>Todos los founders que conocemos comparten el mismo problema: tienen mas cosas en la cabeza que horas en el dia. Probaron apps, probaron metodos, probaron dashboards. Algunos funcionaron un mes. La mayoria, una semana.</p>
+    <p>Lo que descubrimos es que el problema no es la herramienta — es que nadie les hace las preguntas correctas cada manana. "Que es lo mas dificil que estas evitando?" "Esto realmente es de hoy o puede esperar?" "Si solo pudieras hacer 3 cosas, cuales serian?"</p>
+    <p><strong>Keep It Simple</strong> es un sistema de priorizacion que usa inteligencia artificial como coach personal. No es una app. No es un curso. Es una conversacion de 5 minutos cada manana que te deja 3 tareas claras en la mesa: una dificil y dos alcanzables. Lo que no es de hoy, se guarda. Lo que hiciste, se revisa. Lo que repetis sin resultado, se cuestiona.</p>
+    <p>Se configura en una hora. Se sostiene en 5 minutos por dia. Y evoluciona solo cuando vos lo pedis.</p>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<div class="footer">
+  <p>Propuesta en construccion — basada en la experiencia real de founders que ya lo usan. Los textos son hipotesis para validar con los primeros 5 usuarios.</p>
+  <span class="tag">Keep It Simple &middot; Jota + Gaspar &middot; 2026</span>
+</div>
+
+</body>
+</html>
