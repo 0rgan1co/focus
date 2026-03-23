@@ -84,11 +84,13 @@
   .hero-hmw {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.5rem 2.5rem;
-    max-width: 700px;
-    font-size: 1.05rem;
+    border-radius: 20px;
+    padding: 2.5rem 3rem;
+    max-width: 800px;
+    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
     font-style: italic;
+    font-weight: 300;
+    line-height: 1.5;
     color: var(--black);
     position: relative;
     backdrop-filter: blur(20px);
@@ -98,15 +100,33 @@
   .hero-hmw::before {
     content: 'HMW';
     position: absolute;
-    top: -0.6rem;
-    left: 1.5rem;
+    top: -0.7rem;
+    left: 2rem;
     background: var(--white);
-    padding: 0 0.5rem;
-    font-size: 0.65rem;
+    padding: 0 0.6rem;
+    font-size: 0.7rem;
     font-style: normal;
     font-weight: 700;
     letter-spacing: 0.15em;
     color: var(--orange);
+  }
+
+  .hero-quote {
+    margin-top: 2rem;
+    max-width: 650px;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  .hero-quote .author {
+    display: block;
+    margin-top: 0.4rem;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--black);
+    letter-spacing: 0.03em;
   }
 
   /* -- CTA BUTTONS -- */
@@ -623,6 +643,7 @@
   <div class="hero-hmw">
     Como podriamos ayudar a lideres ocupados a pasar de sentirse ahogados en tareas a tomar 3 decisiones claras cada manana — sin agregar otra herramienta compleja a su vida?
   </div>
+  <p class="hero-quote">"No hay nada tan inutil como hacer con gran eficiencia lo que no deberia hacerse en absoluto."<span class="author">— Peter Drucker</span></p>
   <span class="scroll-hint">SCROLL</span>
 </div>
 
