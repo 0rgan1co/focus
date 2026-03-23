@@ -1119,8 +1119,8 @@
 <!-- ==================== PARA QUIEN ==================== -->
 <section>
   <span class="section-label">02 &mdash; Para quien</span>
-  <h2>Lideres ocupados con equipos chicos</h2>
-  <p>No es para empresas con 200 empleados y un PMO. Es para la persona que hace todo: vende, entrega, gestiona, piensa estrategia y ademas tiene que decidir que hacer primero.</p>
+  <h2>Lideres ocupados que hacen de todo</h2>
+  <p>No es para empresas con 200 empleados y un PMO. Es para la persona que vende, entrega, gestiona, piensa estrategia y ademas tiene que decidir que hacer primero.</p>
 
   <div class="avatar-section">
     <div class="avatar-card" style="margin-bottom: 1.5rem">
@@ -1341,12 +1341,12 @@ async function handleSubmit(e) {
         'Content-Type': 'application/json',
         'apikey': SUPABASE_KEY,
         'Authorization': 'Bearer ' + SUPABASE_KEY,
-        'Prefer': 'return=minimal,resolution=merge-duplicates'
+        'Prefer': 'return=minimal'
       },
       body: JSON.stringify({ email, name, source: 'landing-focus' })
     });
 
-    if (!res.ok && res.status !== 409) {
+    if (!res.ok && res.status !== 409 && res.status !== 409) {
       throw new Error('Error al guardar');
     }
 
